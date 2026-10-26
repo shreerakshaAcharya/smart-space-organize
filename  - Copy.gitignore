@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# SQLite databases & instance folder
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploaded test media
+uploads/*
+!uploads/.gitkeep
+
+# IDE and Editor configurations
+.vscode/
+.idea/
+
+# Operating system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Space Organizer - Find it. Store it. Organize it.</title>
+  <meta name="description"
+    content="An AI-powered home organization assistant that remembers where your belongings are kept and recommends smarter ways to organize your space.">
+
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Subtle ambient decorative glow orbs -->
+  <div class="bg-orb bg-orb-1" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb-2" aria-hidden="true"></div>
+
+  <div class="app-container">
+
+    <!-- ==========================================================================
+         PART 1 — LEFT SIDEBAR NAVIGATION
+         Includes: Home, Items, Organize, Settings
+         ========================================================================== -->
+    <aside class="app-sidebar" aria-label="Main Navigation">
+      <div class="sidebar-logo" id="sidebarLogo" title="Smart Space Organizer">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+      </div>
+
+      <nav class="sidebar-nav">
+        <!-- 1. Home -->
+        <button type="button" class="nav-item active" id="navHome" title="Home" aria-label="Home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M3 10.5 12 3l9 7.5V20a2 2 0 0 1-2 2h-4a1 1 0 0 1-1-1v-5a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v5a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2z" />
+          </svg>
+        </button>
+
+        <!-- 2. Items -->
+        <button type="button" class="nav-item" id="navItems" title="Items" aria-label="Items">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="18" x="3" y="3" rx="2" />
+            <path d="M7 8h10" />
+            <path d="M7 12h10" />
+            <path d="M7 16h6" />
+          </svg>
+        </button>
+
+        <!-- 3. Organize -->
+        <button type="button" class="nav-item" id="navOrganize" title="Organize" aria-label="Organize">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="7" height="7" x="3" y="3" rx="1" />
+            <rect width="7" height="7" x="14" y="3" rx="1" />
+            <rect width="7" height="7" x="14" y="14" rx="1" />
+            <rect width="7" height="7" x="3" y="14" rx="1" />
+          </svg>
+        </button>
+
+        <!-- 4. Settings -->
+        <button type="button" class="nav-item" id="navSettings" title="Settings" aria-label="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </button>
+      </nav>
+
+      <div class="sidebar-spacer"></div>
+
+      <div class="sidebar-footer">
+        <button type="button" class="user-profile-avatar" id="avatarProfileBtn" title="Account & Preferences">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Canvas Card -->
+    <main class="main-canvas">
+
+      <!-- Top Canvas Header -->
+      <header class="canvas-header">
+        <div class="brand-wrapper" id="brandHeaderHome">
+          <span class="brand-badge">
+            <svg class="sparkle" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" />
+            </svg>
+            Smart Space Organizer
+          </span>
+        </div>
+
+        <!-- Part 1.4: Login / Profile Actions in Top-Right Corner -->
+        <div class="header-actions" id="authHeaderContainer">
+          <span class="user-badge-pill" id="userBadgePill" style="display: none;">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span id="headerUsernameText">alex</span>
+          </span>
+
+          <button type="button" class="btn-header-login" id="btnLoginHeader">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <polyline points="10 17 15 12 10 7" />
+              <line x1="15" y1="12" x2="3" y2="12" />
+            </svg>
+            <span>Login</span>
+          </button>
+
+          <button type="button" class="btn-header-logout" id="btnLogoutHeader" style="display: none;">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span>Logout</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ==========================================================================
+           PAGE 1: LANDING / HOME PAGE
+           Bedroom interior background visual, minimal, glassmorphic, dynamic stats
+           ========================================================================== -->
+      <section class="view-container active-view" id="viewLanding">
+        <div class="landing-content">
+
+          <div class="hero-split-grid">
+
+            <!-- Left Hero Content -->
+            <div class="hero-text-block">
+              <div class="hero-pill-badge">
+                <span>AI-Powered Assistant</span>
+              </div>
+
+              <h1 class="hero-title">
+                Smart Space <span class="title-gradient">Organizer</span>
+              </h1>
+
+              <div class="hero-tagline">
+                Find it. Store it. Organize it.
+              </div>
+
+              <p class="hero-description">
+                An AI-powered home organization assistant that remembers where your belongings are kept and recommends
+                smarter ways to organize your space.
+              </p>
+
+              <!-- Hero Action Button: Purple Gradient "+ CREATE" Button -->
+              <div class="hero-actions-row">
+                <button type="button" class="btn-create-primary" id="btnCreateItem" title="Add a new household object">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                  <span>+ Create</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Hero: Beautiful Bedroom Interior Background Visual Card -->
+            <div class="hero-bedroom-card" id="heroBedroomCard">
+              <img src="assets/hero-room.jpg" alt="Beautiful organized bedroom interior" id="heroBedroomImg">
+              <div class="hero-bedroom-badge">
+                <span class="live-dot"></span>
+                <span>Live Smart Space</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Summary Stat Cards (Dynamically calculated from SQLite, starting at 0 for new user) -->
+          <div class="stats-container">
+
+            <!-- Card 1: Items Stored -->
+            <div class="stat-card" id="cardItemsStored" title="Click to view stored items directory">
+              <div class="stat-icon-bubble">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path
+                    d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                  <path d="m3.3 7 8.7 5 8.7-5" />
+                  <path d="M12 22V12" />
+                </svg>
+              </div>
+              <div class="stat-label">Items Stored</div>
+              <div class="stat-number" id="statItemsCount">0</div>
+            </div>
+
+            <!-- Card 2: Locations Saved -->
+            <div class="stat-card" id="cardLocationsSaved" title="Saved storage locations across your rooms">
+              <div class="stat-icon-bubble">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path
+                    d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <div class="stat-label">Locations Saved</div>
+              <div class="stat-number" id="statLocationsCount">0</div>
+            </div>
+
+            <!-- Card 3: Spaces Organized -->
+            <div class="stat-card" id="cardSpacesOrganized" title="Active organized rooms and zones">
+              <div class="stat-icon-bubble">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+                </svg>
+              </div>
+              <div class="stat-label">Spaces Organized</div>
+              <div class="stat-number" id="statSpacesCount">0</div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           PAGE 2: ITEMS DIRECTORY PAGE
+           View, search, edit, delete, and add household objects
+           ========================================================================== -->
+      <section class="view-container" id="viewItems">
+        <div class="items-content">
+          <!-- Page Header -->
+          <div class="page-header-block" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <button type="button" class="back-to-home-btn" id="btnBackToHomeFromItems">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+                <span>Back to Home</span>
+              </button>
+              <h2 class="page-title">Items Directory</h2>
+              <p class="page-subtitle">View, search, edit, and organize all your saved household objects.</p>
+            </div>
+            <button type="button" class="btn-create-primary" id="btnAddObjectFromItems">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              <span>+ Add Object</span>
+            </button>
+          </div>
+
+          <!-- Items Search and Filter Toolbar -->
+          <div class="items-toolbar">
+            <div class="items-search-wrap">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input type="text" id="itemsSearchInput" placeholder="Search saved objects by name, room, or location..." autocomplete="off">
+              <button type="button" class="clear-input-btn" id="btnClearItemsSearch" style="display: none;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <div class="items-filter-pills" id="itemsFilterPills">
+              <button type="button" class="filter-pill active" data-filter="all">All Items</button>
+              <button type="button" class="filter-pill" data-filter="Bedroom">Bedroom</button>
+              <button type="button" class="filter-pill" data-filter="Living Room">Living Room</button>
+              <button type="button" class="filter-pill" data-filter="Kitchen">Kitchen</button>
+              <button type="button" class="filter-pill" data-filter="Study Desk">Study Desk</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Items Grid -->
+          <div class="items-grid" id="itemsGrid">
+            <!-- Dynamically populated from SQLite by app.js -->
+          </div>
+
+          <!-- Empty State -->
+          <div class="find-empty-state" id="itemsEmptyState" style="display: none;">
+            <div class="empty-state-icon">
+              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.6">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+            <h3 class="empty-state-title" id="itemsEmptyTitle">No objects found</h3>
+            <p class="empty-state-desc" id="itemsEmptyDesc">Start by storing your first household object or clear your search query.</p>
+            <button type="button" class="btn-create-primary" id="btnEmptyCreate">
+              <span>+ Add Object</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           PAGE 3: ORGANIZE PAGE
+           Manage rooms, define storage locations, and find exact object locations
+           ========================================================================== -->
+      <section class="view-container" id="viewOrganize">
+        <div class="organize-content">
+          <!-- Page Header -->
+          <div class="page-header-block" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <button type="button" class="back-to-home-btn" id="btnBackToHomeFromOrganize">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+                <span>Back to Home</span>
+              </button>
+              <h2 class="page-title">Organize Your Space</h2>
+              <p class="page-subtitle">Create rooms, define custom storage spots, and find where items are kept.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button type="button" class="btn-secondary" id="btnOpenCreateLocModal">
+                <span>+ New Location</span>
+              </button>
+              <button type="button" class="btn-create-primary" id="btnOpenCreateRoomModal">
+                <span>+ Create Room</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Part 5 Object Retrieval Locator -->
+          <div class="locator-search-card">
+            <div class="locator-search-title">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7C3AED" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <span>Find Saved Object Location</span>
+            </div>
+            <div class="locator-search-row">
+              <div class="locator-search-box">
+                <input type="text" id="organizeSearchInput" placeholder="Enter object name (e.g. Charger, Passport, House Keys)..." autocomplete="off">
+              </div>
+              <button type="button" class="btn-locate-action" id="btnLocateObject">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <span>Find Location</span>
+              </button>
+            </div>
+
+            <!-- Highlighted exact match banner (Part 5 Example requirement) -->
+            <div class="locator-result-banner" id="locatorResultBanner">
+              <div class="success-check-badge" style="width: 38px; height: 38px; flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <div style="flex: 1;">
+                <div class="locator-result-text" id="locatorResultText">Charger is stored in Bedroom → Study Desk Drawer.</div>
+                <div style="font-size: 13px; color: #047857; margin-top: 2px;" id="locatorResultSub">Retrieved from persistent SQLite database.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rooms and Storage Locations Grid -->
+          <div>
+            <h3 style="font-size: 19px; font-weight: 700; color: #1E1B4B; margin-bottom: 14px;">Rooms & Storage Zones</h3>
+            <div class="rooms-grid" id="roomsGridContainer">
+              <!-- Dynamically populated by app.js from /api/rooms and /api/locations -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           PAGE 4: SETTINGS PAGE
+           Account details and application preferences
+           ========================================================================== -->
+      <section class="view-container" id="viewSettings">
+        <div class="settings-content">
+          <div class="page-header-block">
+            <button type="button" class="back-to-home-btn" id="btnBackToHomeFromSettings">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+              <span>Back to Home</span>
+            </button>
+            <h2 class="page-title">Settings & Preferences</h2>
+            <p class="page-subtitle">Manage your account details and application preferences.</p>
+          </div>
+
+          <div class="settings-cards-grid">
+            <!-- Account Details -->
+            <div class="settings-card">
+              <div class="settings-card-header">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#7C3AED" stroke-width="2">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>Account Details</span>
+              </div>
+              <div class="settings-row">
+                <div>
+                  <div class="settings-row-label">Username</div>
+                  <div class="settings-row-desc">Your active display identifier</div>
+                </div>
+                <div class="settings-row-value" id="settingsUsername">alex</div>
+              </div>
+              <div class="settings-row">
+                <div>
+                  <div class="settings-row-label">Email Address</div>
+                  <div class="settings-row-desc">Used for authentication</div>
+                </div>
+                <div class="settings-row-value" id="settingsEmail">alex@smartspace.io</div>
+              </div>
+              <div class="settings-row">
+                <div>
+                  <div class="settings-row-label">Session Status</div>
+                  <div class="settings-row-desc">Encrypted Flask session</div>
+                </div>
+                <div class="settings-row-value" style="color: #059669;" id="settingsSession">Active</div>
+              </div>
+              <button type="button" class="btn-header-logout" id="btnSettingsLogout" style="align-self: flex-start; margin-top: 10px;">
+                Log Out of Account
+              </button>
+            </div>
+
+            <!-- App & AI Preferences -->
+            <div class="settings-card">
+              <div class="settings-card-header">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#7C3AED" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                <span>Application & AI Engine</span>
+              </div>
+              <div class="settings-row">
+                <div>
+                  <div class="settings-row-label">AI Visual Recognition</div>
+                  <div class="settings-row-desc">PyTorch MobileNetV3 ImageNet Engine</div>
+                </div>
+                <div class="settings-row-value" style="color: #059669;">Ready & Active</div>
+              </div>
+              <div class="settings-row">
+                <div>
+                  <div class="settings-row-label">Database Storage</div>
+                  <div class="settings-row-desc">SQLite instance/smart_space.db</div>
+                </div>
+                <div class="settings-row-value" style="color: #059669;">Connected</div>
+              </div>
+              <div class="settings-row">
+                <div>
+                  <div class="settings-row-label">Visual Theme</div>
+                  <div class="settings-row-desc">Lavender, Purple, Pink & Glassmorphism</div>
+                </div>
+                <div class="settings-row-value">Default</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           PAGE 5: "ADD OBJECT" / STORE AN ITEM
+           Upload image + AI Visual Recognition + Room & Location Selection
+           ========================================================================== -->
+      <section class="view-container" id="viewStoreItem">
+        <div class="store-content">
+
+          <!-- Back navigation & Page Title -->
+          <div class="page-header-block">
+            <button type="button" class="back-to-home-btn" id="btnBackToHome">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+              <span>Back to Home</span>
+            </button>
+            <h2 class="page-title">Add a New Object</h2>
+            <p class="page-subtitle">Upload a photo for AI visual recognition or enter object details manually.</p>
+          </div>
+
+          <!-- Mode Toggle: Type Item vs Upload Image -->
+          <div class="mode-toggle-group">
+            <button type="button" class="mode-tab-btn active" id="tabTypeItem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+              </svg>
+              <span>Type Object</span>
+            </button>
+
+            <button type="button" class="mode-tab-btn" id="tabUploadImage">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                <circle cx="9" cy="9" r="2" />
+                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+              </svg>
+              <span>Upload Image (AI Recognition)</span>
+            </button>
+          </div>
+
+          <!-- Image Upload Area with AI Visual Recognition -->
+          <div class="upload-dropzone" id="uploadDropzone">
+            <input type="file" id="fileInput" class="file-input-hidden" accept="image/*">
+
+            <div class="upload-default-content" id="uploadDefaultContent">
+              <div class="upload-icon-container">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path
+                    d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                  <circle cx="12" cy="13" r="3" />
+                </svg>
+              </div>
+              <div class="upload-primary-text">Upload object photograph for AI Recognition</div>
+              <div class="upload-secondary-text">(Click or drag object photo here — PyTorch model auto-identifies object)</div>
+            </div>
+
+            <!-- Upload Preview State -->
+            <div class="upload-preview-container" id="uploadPreviewContainer">
+              <img src="" alt="Item preview" id="previewImage" class="preview-thumb">
+              <div class="preview-meta">
+                <div class="preview-filename" id="previewFilename">photo.jpg</div>
+                <div class="preview-ai-badge">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
+                    <circle cx="12" cy="12" r="6"/>
+                  </svg>
+                  <span id="previewAiTag">AI Analyzed</span>
+                </div>
+              </div>
+              <button type="button" class="preview-remove-btn" id="btnRemoveImage" title="Remove image">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- AI Recognition Suggestion Box (Part 7) -->
+          <div class="ai-suggestion-box" id="aiSuggestionBox">
+            <div class="ai-suggestion-title">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" />
+              </svg>
+              <span>AI Visual Recognition Suggestion</span>
+              <span id="aiConfidenceBadge" style="font-size: 11px; background: rgba(124, 58, 237, 0.15); padding: 2px 8px; border-radius: 12px; font-weight: 700;"></span>
+            </div>
+            <div class="ai-suggestion-text" id="aiSuggestionText">Detected object photograph.</div>
+            <button type="button" class="btn-apply-suggestion" id="btnApplyAiSuggestion">Apply AI Suggestion</button>
+          </div>
+
+          <!-- Object Name Input Area -->
+          <div class="input-section" id="sectionItemName">
+            <label class="form-field-label" for="itemSearchInput">Object Name <span class="required-star">*</span></label>
+            <div class="search-input-wrapper">
+              <span class="search-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </span>
+              <input type="text" id="itemSearchInput" class="item-search-input"
+                placeholder="e.g. Laptop Charger, Passport, House Keys..." autocomplete="off">
+              <button type="button" class="clear-input-btn" id="btnClearInput" title="Clear text">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Quick Suggestion Chips -->
+            <div class="suggestion-chips-row">
+              <span class="suggestion-label">Quick Suggestions:</span>
+              <button type="button" class="item-chip" data-item="Laptop Charger">⚡ Laptop Charger</button>
+              <button type="button" class="item-chip" data-item="Passport">🛂 Passport</button>
+              <button type="button" class="item-chip" data-item="House Keys">🔑 House Keys</button>
+              <button type="button" class="item-chip" data-item="Smart Watch">⌚ Smart Watch</button>
+              <button type="button" class="item-chip" data-item="Wireless Earphones">🎧 Wireless Earphones</button>
+            </div>
+          </div>
+
+          <!-- Room and Location Dynamic Selectors (Part 4 & 5) -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px;">
+            <div class="input-section">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label class="form-field-label" style="margin: 0;" for="selectStoreRoom">Room <span class="required-star">*</span></label>
+                <button type="button" id="btnQuickAddRoom" style="background: none; border: none; color: var(--primary-600); font-size: 12px; font-weight: 700; cursor: pointer;">+ New Room</button>
+              </div>
+              <select id="selectStoreRoom" class="item-search-input" style="padding: 12px 14px; cursor: pointer;">
+                <!-- Populated dynamically from SQLite /api/rooms -->
+              </select>
+            </div>
+
+            <div class="input-section">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label class="form-field-label" style="margin: 0;" for="selectStoreLocation">Storage Location <span class="required-star">*</span></label>
+                <button type="button" id="btnQuickAddLocation" style="background: none; border: none; color: var(--primary-600); font-size: 12px; font-weight: 700; cursor: pointer;">+ New Spot</button>
+              </div>
+              <select id="selectStoreLocation" class="item-search-input" style="padding: 12px 14px; cursor: pointer;">
+                <!-- Populated dynamically from SQLite /api/locations -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Item Description Input Area -->
+          <div class="input-section" id="sectionItemDesc" style="margin-top: 10px;">
+            <label class="form-field-label" for="itemDescriptionInput">Description (Optional)</label>
+            <div class="search-input-wrapper">
+              <span class="search-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </span>
+              <input type="text" id="itemDescriptionInput" class="item-search-input"
+                placeholder="e.g. 65W USB-C fast charger, inside blue RFID sleeve..." autocomplete="off">
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons: Save Object Directly -->
+          <div class="store-actions-row">
+            <button type="button" class="btn-secondary" id="btnCancelStore">Cancel</button>
+            <button type="button" class="btn-create-primary" id="btnDirectSaveItem" title="Save object to SQLite database">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                <polyline points="17 21 17 13 7 13 7 21"/>
+                <polyline points="7 3 7 8 15 8"/>
+              </svg>
+              <span>Save Object</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           PAGE 6: ITEM LOCATION RESULT (CONFIRMATION VIEW)
+           ========================================================================== -->
+      <section class="view-container" id="viewLocationResult">
+        <div class="result-content">
+
+          <!-- Success Icon & Celebration Title -->
+          <div class="result-celebration-head">
+            <div class="success-check-badge">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <h2 class="result-title">Object Saved Successfully!</h2>
+            <p class="result-subtitle">Stored permanently in SQLite database.</p>
+          </div>
+
+          <!-- Item Card Summary -->
+          <div class="result-item-card">
+            <div class="result-item-thumb-box" id="resultItemThumbBox">
+              <img src="" alt="Item preview" id="resultItemThumb" class="result-thumb-img" style="display: none;">
+              <div id="resultItemThumbIcon" class="find-item-icon-ph" style="color: #7C3AED;">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="result-item-info">
+              <span class="result-item-label">Saved Object</span>
+              <h3 class="result-item-name" id="resultItemName">Charger</h3>
+            </div>
+          </div>
+
+          <!-- Location Path Breadcrumbs Section -->
+          <div class="result-path-section">
+            <h4 class="result-section-label">Storage Path</h4>
+            <div class="result-breadcrumbs" id="resultBreadcrumbs">
+              <span class="path-pill">Home</span>
+              <span class="path-arrow">→</span>
+              <span class="path-pill" id="pathPillLocation">Bedroom</span>
+              <span class="path-arrow">→</span>
+              <span class="path-pill" id="pathPillSubLocation">Study Desk Drawer</span>
+            </div>
+          </div>
+
+          <!-- Current Location Highlight Card -->
+          <div class="current-location-card">
+            <div class="current-loc-icon-bubble">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+            </div>
+            <div class="current-loc-text">
+              <span class="current-loc-title">Saved Storage Location</span>
+              <div class="current-loc-hierarchy" id="resultCurrentLocHierarchy">
+                Bedroom → Study Desk Drawer
+              </div>
+            </div>
+          </div>
+
+          <!-- Date Timestamp -->
+          <div class="result-saved-date">
+            <span>Saved on:</span> <strong id="resultSavedDate">Today</strong>
+          </div>
+
+          <!-- Bottom Action Buttons Row -->
+          <div class="result-actions-row">
+            <button type="button" class="btn-result-primary" id="btnAddAnotherItem">
+              <span>+ Add Another Object</span>
+            </button>
+            <button type="button" class="btn-result-secondary" id="btnViewAllSavedItems">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 8h10"/><path d="M7 12h10"/></svg>
+              <span>View All Saved Items</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: USER LOGIN & REGISTRATION MODAL (Part 1.4 & Part 6)
+       ========================================================================== -->
+  <div class="modal-overlay" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+    <div class="modal-content-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="loginModalTitle">Account Authentication</h3>
+        <button type="button" class="modal-close-btn" id="btnCloseLoginModal">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body" style="gap: 16px;">
+        <!-- Tabs: Sign In / Create Account -->
+        <div class="auth-tabs">
+          <button type="button" class="auth-tab-btn active" id="tabSignIn">Sign In</button>
+          <button type="button" class="auth-tab-btn" id="tabRegister">Create Account</button>
+        </div>
+
+        <div id="authAlertBox" style="display: none; padding: 10px 14px; border-radius: 8px; font-size: 13.5px; font-weight: 600;"></div>
+
+        <!-- Form fields -->
+        <div id="authUsernameGroup" style="display: none; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700; color: var(--text-primary);">Username</label>
+          <input type="text" id="authUsername" class="item-search-input" style="padding: 10px 14px;" placeholder="Choose a username">
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700; color: var(--text-primary);" id="authIdentLabel">Username or Email</label>
+          <input type="text" id="authIdentifier" class="item-search-input" style="padding: 10px 14px;" placeholder="alex or alex@smartspace.io" value="alex">
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700; color: var(--text-primary);">Password</label>
+          <input type="password" id="authPassword" class="item-search-input" style="padding: 10px 14px;" placeholder="Enter password" value="password123">
+        </div>
+
+        <button type="button" class="btn-create-primary" id="btnSubmitAuth" style="width: 100%; justify-content: center; margin-top: 8px;">
+          Sign In
+        </button>
+
+        <p style="font-size: 12px; color: var(--text-muted); text-align: center;">Demo account: <strong>alex</strong> / <strong>password123</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: CREATE ROOM MODAL (Part 2 & Part 4)
+       ========================================================================== -->
+  <div class="modal-overlay" id="createRoomModal" role="dialog" aria-modal="true">
+    <div class="modal-content-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Create New Room</h3>
+        <button type="button" class="modal-close-btn" id="btnCloseRoomModal">✕</button>
+      </div>
+      <div class="modal-body" style="gap: 14px;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700;">Room Name *</label>
+          <input type="text" id="modalRoomName" class="item-search-input" placeholder="e.g. Master Bedroom, Balcony, Attic">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700;">Description (Optional)</label>
+          <input type="text" id="modalRoomDesc" class="item-search-input" placeholder="e.g. Personal space with storage wardrobe">
+        </div>
+        <button type="button" class="btn-create-primary" id="btnSaveNewRoom" style="width: 100%; justify-content: center; margin-top: 6px;">
+          Create Room
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: CREATE STORAGE LOCATION MODAL (Part 2 & Part 4)
+       ========================================================================== -->
+  <div class="modal-overlay" id="createLocationModal" role="dialog" aria-modal="true">
+    <div class="modal-content-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Storage Location</h3>
+        <button type="button" class="modal-close-btn" id="btnCloseLocModal">✕</button>
+      </div>
+      <div class="modal-body" style="gap: 14px;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700;">Select Room *</label>
+          <select id="modalLocRoomSelect" class="item-search-input" style="padding: 10px 14px;"></select>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700;">Location Name *</label>
+          <input type="text" id="modalLocName" class="item-search-input" placeholder="e.g. Study Desk Drawer, Upper Wardrobe Shelf">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700;">Description (Optional)</label>
+          <input type="text" id="modalLocDesc" class="item-search-input" placeholder="e.g. Left pullout drawer">
+        </div>
+        <button type="button" class="btn-create-primary" id="btnSaveNewLocation" style="width: 100%; justify-content: center; margin-top: 6px;">
+          Save Location
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: EDIT OBJECT MODAL (Part 2 & Part 6)
+       ========================================================================== -->
+  <div class="modal-overlay" id="editItemModal" role="dialog" aria-modal="true">
+    <div class="modal-content-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Stored Object</h3>
+        <button type="button" class="modal-close-btn" id="btnCloseEditModal">✕</button>
+      </div>
+      <div class="modal-body" style="gap: 14px;">
+        <input type="hidden" id="editItemId">
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700;">Object Name *</label>
+          <input type="text" id="editItemName" class="item-search-input" placeholder="e.g. Laptop Charger">
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700;">Room</label>
+          <select id="editItemRoomSelect" class="item-search-input" style="padding: 10px 14px;"></select>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700;">Location</label>
+          <select id="editItemLocSelect" class="item-search-input" style="padding: 10px 14px;"></select>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 13px; font-weight: 700;">Description</label>
+          <input type="text" id="editItemDescription" class="item-search-input" placeholder="e.g. Black fast charger">
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 6px;">
+          <button type="button" class="btn-secondary" id="btnCancelEdit" style="flex: 1;">Cancel</button>
+          <button type="button" class="btn-create-primary" id="btnSaveEdit" style="flex: 1.5; justify-content: center;">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Logic Script -->
+  <script src="app.js"></script>
+</body>
+
+</html>
